@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="180" viewBox="0 0 880 180" role="img" aria-labelledby="title desc">
+  <title id="title">Yasuo Steel Tempest pixel animation</title>
+  <desc id="desc">A pixel swordsman thrusts twice, then launches a spinning wind tornado through three minions.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827" />
+      <stop offset="1" stop-color="#0b1220" />
+    </linearGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M28 0H0V28" fill="none" stroke="#475569" stroke-opacity=".18" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <rect x="1" y="1" width="878" height="178" rx="12" fill="url(#panel)" stroke="#334155" stroke-width="2" />
+  <rect x="2" y="2" width="876" height="176" rx="11" fill="url(#grid)" />
+
+  <text x="28" y="31" fill="#e2e8f0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="2">YASUO</text>
+  <text x="28" y="49" fill="#38bdf8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="10" letter-spacing="1.5">STEEL TEMPEST</text>
+  <text x="850" y="32" text-anchor="end" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" letter-spacing="1">Q  /  Q  /  Q3</text>
+  <circle cx="786" cy="48" r="3" fill="#38bdf8" />
+  <circle cx="802" cy="48" r="3" fill="#38bdf8" />
+  <circle cx="818" cy="48" r="3" fill="#a78bfa">
+    <animate attributeName="r" values="3;4.5;3" dur="1.2s" repeatCount="indefinite" />
+  </circle>
+
+  <path d="M24 132H856" stroke="#64748b" stroke-width="2" />
+  <g fill="#94a3b8" opacity=".55">
+    <rect x="40" y="144" width="20" height="3" rx="1" />
+    <rect x="130" y="151" width="12" height="3" rx="1" />
+    <rect x="220" y="144" width="25" height="3" rx="1" />
+    <rect x="330" y="151" width="14" height="3" rx="1" />
+    <rect x="430" y="144" width="22" height="3" rx="1" />
+    <rect x="530" y="151" width="12" height="3" rx="1" />
+    <rect x="630" y="144" width="25" height="3" rx="1" />
+    <rect x="740" y="151" width="14" height="3" rx="1" />
+    <rect x="830" y="144" width="18" height="3" rx="1" />
+  </g>
+
+  <!-- Yasuo pixel sprite -->
+  <g transform="translate(88 62)" shape-rendering="crispEdges">
+    <path d="M20 12h-22v6h-14v6h25v-5h14z" fill="#0f172a" />
+    <rect x="21" y="4" width="25" height="23" fill="#f0c99a" />
+    <path d="M17 8V1h9v-5h12v6h12v9h-7V6H27v8h-6V8z" fill="#111827" />
+    <rect x="25" y="12" width="4" height="4" fill="#0b1220" />
+    <rect x="19" y="23" width="36" height="34" fill="#1e3a8a" />
+    <path d="M15 27h10v25H7v-8h8z" fill="#334155" />
+    <rect x="37" y="29" width="24" height="6" fill="#38bdf8" />
+    <rect x="43" y="35" width="14" height="5" fill="#0f766e" />
+    <path d="M18 48h39v8H50v8H23v-7H12v-7h6z" fill="#172554" />
+    <rect x="23" y="55" width="9" height="12" fill="#0f172a" />
+    <rect x="39" y="55" width="9" height="12" fill="#0f172a" />
+    <rect x="19" y="65" width="15" height="5" fill="#94a3b8" />
+    <rect x="36" y="65" width="16" height="5" fill="#94a3b8" />
+    <rect x="53" y="31" width="10" height="5" fill="#f0c99a" />
+    <rect x="-3" y="17" width="11" height="5" fill="#0f172a" />
+  </g>
+
+  <!-- Q1 and Q2 thrust trails -->
+  <g fill="none" stroke="#67e8f9" stroke-linecap="square">
+    <g opacity="0">
+      <animate attributeName="opacity" values="0;0;1;0;0;0;1;0;0" keyTimes="0;.03;.045;.10;.22;.25;.265;.32;1" dur="6s" repeatCount="indefinite" />
+      <path d="M220 75h47M226 82h36M230 68h28" stroke-width="3" />
+      <path d="M262 71l10 4-10 4" stroke-width="2" />
+    </g>
+  </g>
+
+  <!-- Katana thrusts twice before the third cast -->
+  <g transform="translate(136 84)" shape-rendering="crispEdges">
+    <animateTransform attributeName="transform" type="translate" values="136 84;136 84;164 84;164 84;136 84;136 84;164 84;164 84;136 84;136 84" keyTimes="0;.03;.045;.075;.10;.25;.265;.29;.32;1" dur="6s" repeatCount="indefinite" />
+    <rect x="-10" y="-3" width="18" height="7" fill="#f59e0b" />
+    <rect x="6" y="-2" width="5" height="5" fill="#cbd5e1" />
+    <rect x="11" y="-1" width="54" height="3" fill="#e2e8f0" />
+    <path d="M65-1h8l-8 3z" fill="#67e8f9" />
+  </g>
+
+  <!-- Minions -->
+  <g shape-rendering="crispEdges">
+    <g transform="translate(280 97)">
+      <animateTransform attributeName="transform" type="translate" values="280 97;280 97;280 70;280 97;280 97" keyTimes="0;.605;.625;.66;1" dur="6s" repeatCount="indefinite" />
+      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
+      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
+      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
+      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="8" y="25" width="7" height="10" fill="#334155" />
+      <rect x="21" y="25" width="7" height="10" fill="#334155" />
+      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
+      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
+    </g>
+    <g transform="translate(490 97)">
+      <animateTransform attributeName="transform" type="translate" values="490 97;490 97;490 70;490 97;490 97" keyTimes="0;.695;.715;.75;1" dur="6s" repeatCount="indefinite" />
+      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
+      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
+      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
+      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="8" y="25" width="7" height="10" fill="#334155" />
+      <rect x="21" y="25" width="7" height="10" fill="#334155" />
+      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
+      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
+    </g>
+    <g transform="translate(700 97)">
+      <animateTransform attributeName="transform" type="translate" values="700 97;700 97;700 70;700 97;700 97" keyTimes="0;.785;.805;.84;1" dur="6s" repeatCount="indefinite" />
+      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
+      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
+      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
+      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
+      <rect x="8" y="25" width="7" height="10" fill="#334155" />
+      <rect x="21" y="25" width="7" height="10" fill="#334155" />
+      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
+      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
+    </g>
+  </g>
+
+  <!-- Q3 tornado travels through the minion line -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.53;.56;.86;.92;1" dur="6s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" type="translate" values="160 99;160 99;840 99;840 99;160 99" keyTimes="0;.54;.86;.92;1" dur="6s" repeatCount="indefinite" />
+    <g fill="none" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur=".38s" repeatCount="indefinite" />
+      <path d="M-34 0c8-23 41-27 58-10 14 15 4 36-17 37-19 1-28-17-16-28 10-9 23-3 24 7" stroke="#67e8f9" stroke-width="4" />
+      <path d="M-26-10c12-13 33-13 42 0 8 11 0 22-11 22-9 0-13-8-8-14" stroke="#bae6fd" stroke-width="3" />
+      <path d="M-29 15c13 8 31 8 43 0" stroke="#38bdf8" stroke-width="3" />
+      <path d="M-40 0h80" stroke="#e0f2fe" stroke-opacity=".8" stroke-width="2" />
+    </g>
+  </g>
+</svg>

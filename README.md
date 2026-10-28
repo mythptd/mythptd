@@ -30,8 +30,8 @@ Transitioning into game monetization by applying my Unity and player-data experi
 - Portfolio: [mythptd.github.io](https://mythptd.github.io/portfolio/)
 - Email: [ptdatmyth261201@gmail.com](mailto:ptdatmyth261201@gmail.com)
 
-## Dino Run
+## Steel Tempest
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mythptd/mythptd/main/assets/dino-run.svg" alt="Pixel dinosaur running and jumping over cacti" width="100%" />
+  <img src="https://raw.githubusercontent.com/mythptd/mythptd/main/assets/yasuo-q-pixel.svg" alt="Pixel Yasuo thrusting Q twice, then launching Q3 through minions" width="100%" />
 </p>
