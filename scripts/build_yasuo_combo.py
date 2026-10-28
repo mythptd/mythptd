@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import math
 import random
-from collections import Counter
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -13,10 +12,13 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "assets" / "yasuo.gif"
 MINION = ROOT / "assets" / "minion-pixel.png"
-CRYSTAL = ROOT / "assets" / "home-crystal-pixel.png"
+CRYSTAL = ROOT / "assets" / "home-crystal-floating.png"
+LANDSCAPE = ROOT / "assets" / "pixel-sky-grass.png"
 OUTPUT = ROOT / "assets" / "yasuo-q-combo.gif"
 
 WIDTH, HEIGHT = 760, 211
+GROUND_Y = 179
+YASUO_Y = GROUND_Y - HEIGHT
 FRAME_MS = 80
 FRAME_COUNT = 90
 CYCLE = FRAME_COUNT * FRAME_MS / 1000
@@ -89,23 +91,27 @@ def tornado_sprite(phase: int) -> Image.Image:
     return small.resize((60, 96), Image.Resampling.NEAREST)
 
 
-def backdrop(frame: Image.Image) -> Image.Image:
-    # The supplied GIF changes background color during the attack. Extend its
-    # own edge row by row so the wider scene follows each original frame.
-    mode = Counter(frame.crop((400, 0, 498, 48)).get_flattened_data()).most_common(1)[0][0]
-    canvas = Image.new("RGB", (WIDTH, HEIGHT), mode)
-    source_px = frame.load()
-    for y in range(HEIGHT):
-        clean = all(
-            sum(abs(value - base) for value, base in zip(source_px[x, y], mode)) < 65
-            for x in range(478, 498)
-        )
-        if clean:
-            strip = frame.crop((478, y, 498, y + 1)).transpose(Image.Transpose.FLIP_LEFT_RIGHT)
-            for x in range(498, WIDTH, strip.width):
-                canvas.paste(strip, (x, y))
-    canvas.paste(frame, (0, 0))
-    return canvas
+def crystal_at(canvas: Image.Image, crystal: Image.Image, t: float) -> None:
+    # Four complete hover cycles make the first and last GIF frames connect.
+    phase = math.tau * 4 * t / CYCLE
+    bob = round(5 * math.sin(phase))
+    cx, cy = 98, 84 + bob
+    pulse = (1 + math.sin(phase - math.pi / 2)) / 2
+
+    halo = Image.new("RGBA", (WIDTH, HEIGHT), (0, 0, 0, 0))
+    d = ImageDraw.Draw(halo)
+    for radius, alpha in ((44, 27), (58, 16), (70, 9)):
+        d.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill=(116, 240, 251, round(alpha * (0.75 + pulse))))
+    d.ellipse((cx - 54, cy - 67, cx + 54, cy + 67), outline=(194, 255, 251, round(75 + 65 * pulse)), width=2)
+    d.ellipse((cx - 64, cy - 76, cx + 64, cy + 76), outline=(103, 231, 250, round(40 + 45 * pulse)), width=2)
+    for i in range(7):
+        orbit = phase / 2 + i * math.tau / 7
+        x = cx + round((55 + i % 3 * 5) * math.cos(orbit))
+        y = cy + round((61 + i % 2 * 6) * math.sin(orbit))
+        size = 2 + (i % 2)
+        d.rectangle((x, y, x + size, y + size), fill=(232, 255, 251, 120 + 15 * (i % 3)))
+    canvas.paste(Image.alpha_composite(canvas.convert("RGBA"), halo).convert("RGB"))
+    canvas.paste(crystal, (47, 17 + bob), crystal)
 
 
 def draw_spark(draw: ImageDraw.ImageDraw, x: int, y: int, age: float, seed: int, blue: bool = False) -> None:
@@ -157,7 +163,7 @@ def paste_minion(
         x = round(body_x) - minion.width // 2
     else:
         x = round(body_x) - 68
-    y = HEIGHT - minion.height - lift
+    y = GROUND_Y - minion.height - lift
     canvas.paste(minion, (x, y), minion)
 
 
@@ -187,10 +193,10 @@ def draw_defeat(canvas: Image.Image, sprite: Image.Image, body_x: float, death_a
         paste_minion(canvas, sprite, body_x + drift, lift, death_age < 0.08, fade, angle)
     draw = ImageDraw.Draw(canvas)
     if death_age < 0.35:
-        draw_spark(draw, round(body_x), 152 - lift, death_age, seed, blue=True)
+        draw_spark(draw, round(body_x), GROUND_Y - 59 - lift, death_age, seed, blue=True)
     elif 0.55 < death_age < 0.89:
         # Pixel armor fragments and a short dust burst make the fall readable.
-        draw_spark(draw, round(body_x + drift), 193, death_age - 0.55, seed + 100)
+        draw_spark(draw, round(body_x + drift), GROUND_Y - 18, death_age - 0.55, seed + 100)
 
 
 def minions_at(canvas: Image.Image, sprites: list[Image.Image], t: float) -> None:
@@ -211,7 +217,7 @@ def minions_at(canvas: Image.Image, sprites: list[Image.Image], t: float) -> Non
             if death_age < 0:
                 step = int(age / 0.12) % len(sprites)
                 bob = (0, 2, 0, 2)[step]
-                draw.ellipse((body_x - 26, 207, body_x + 29, 210), fill=(95, 86, 81))
+                draw.ellipse((body_x - 26, GROUND_Y - 4, body_x + 29, GROUND_Y - 1), fill=(67, 95, 57))
                 paste_minion(canvas, sprites[step], body_x, bob)
             else:
                 draw_defeat(canvas, sprites[1], body_x, death_age, kind, 300 + wave * 10 + index)
@@ -222,19 +228,19 @@ def draw_attack_effects(canvas: Image.Image, t: float, twisters: list[Image.Imag
     for hit in (1.0, 2.5):
         age = abs(t - hit)
         if age < 0.12:
-            draw.line(((350, 149), (420, 147)), fill=(189, 241, 243), width=4)
-            draw.line(((367, 146), (425, 145)), fill=(235, 252, 251), width=2)
-            draw_spark(draw, 411, 145, age, round(hit * 10), blue=True)
+            draw.line(((350, 117), (420, 115)), fill=(189, 241, 243), width=4)
+            draw.line(((367, 114), (425, 113)), fill=(235, 252, 251), width=2)
+            draw_spark(draw, 411, 113, age, round(hit * 10), blue=True)
 
     tornado_age = t - TORNADO_START
     if 0 <= tornado_age < 1.23:
         tornado_x = TORNADO_START_X + TORNADO_SPEED * tornado_age
         sprite = twisters[int(t / 0.08) % len(twisters)]
         if tornado_x < WIDTH + 50:
-            canvas.paste(sprite, (round(tornado_x) - 30, 112 + int(t * 25) % 3), sprite)
+            canvas.paste(sprite, (round(tornado_x) - 30, GROUND_Y - 99 + int(t * 25) % 3), sprite)
             for offset in (-18, -9, 14):
                 px = round(tornado_x + offset)
-                py = 196 + (offset % 3) * 3
+                py = GROUND_Y - 15 + (offset % 3) * 3
                 draw.rectangle((px, py, px + 3, py + 2), fill=(142, 217, 223))
 
 
@@ -243,15 +249,16 @@ def render() -> None:
     sprite = Image.open(MINION).convert("RGBA")
     sprites = walking_sprites(sprite)
     crystal = Image.open(CRYSTAL).convert("RGBA")
+    landscape = Image.open(LANDSCAPE).convert("RGB")
     twisters = [tornado_sprite(i) for i in range(4)]
     output = []
     for index in range(FRAME_COUNT):
         t = index * FRAME_MS / 1000
         pose = pose_at(t)
-        canvas = backdrop(frames[pose])
-        canvas.paste(crystal, (42, 36), crystal)
+        canvas = landscape.copy()
+        crystal_at(canvas, crystal, t)
         minions_at(canvas, sprites, t)
-        canvas.paste(frames[pose], (0, 0), masks[pose])
+        canvas.paste(frames[pose], (0, YASUO_Y), masks[pose])
         draw_attack_effects(canvas, t, twisters)
         output.append(canvas)
 
@@ -259,7 +266,7 @@ def render() -> None:
     palette_sample = Image.new("RGB", (WIDTH, HEIGHT * 10))
     for row, index in enumerate((0, 8, 12, 19, 24, 31, 40, 48, 54, 61)):
         palette_sample.paste(output[index], (0, row * HEIGHT))
-    palette = palette_sample.quantize(colors=112, method=Image.Quantize.MEDIANCUT)
+    palette = palette_sample.quantize(colors=256, method=Image.Quantize.MEDIANCUT)
     indexed = [frame.quantize(palette=palette, dither=Image.Dither.NONE) for frame in output]
     indexed[0].save(
         OUTPUT,

@@ -33,5 +33,5 @@ Transitioning into game monetization by applying my Unity and player-data experi
 ## Steel Tempest
 
 <p align="center">
-  <img src="assets/yasuo-q-combo.gif" alt="Pixel-art Yasuo protects a home crystal, defeats two walking minions with Q, then launches a whirlwind that knocks down every minion in its path" width="760" />
+  <img src="assets/yasuo-q-combo.gif" alt="Pixel-art Yasuo protects a glowing floating crystal under a blue sky; walking minions fall to his Q attacks and whirlwind on a grassy lane" width="760" />
 </p>
