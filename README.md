@@ -33,5 +33,5 @@ Transitioning into game monetization by applying my Unity and player-data experi
 ## Steel Tempest
 
 <p align="center">
-  <img src="assets/yasuo.gif" alt="Yasuo pixel art animation" width="498" />
+  <img src="assets/yasuo-q-combo.gif" alt="Pixel-art Yasuo defeats a minion with each Q attack; his third Q sends a whirlwind through a looping minion wave" width="760" />
 </p>
