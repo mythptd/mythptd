@@ -30,10 +30,8 @@ Transitioning into game monetization by applying my Unity and player-data experi
 - Portfolio: [mythptd.github.io](https://mythptd.github.io/portfolio/)
 - Email: [ptdatmyth261201@gmail.com](mailto:ptdatmyth261201@gmail.com)
 
-## Contribution Activity
+## Dino Run
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake.svg" />
-  <img alt="Animated snake eating my GitHub contribution graph" src="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake.svg" />
-</picture>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/mythptd/mythptd/main/assets/dino-run.svg" alt="Pixel dinosaur running and jumping over cacti" width="100%" />
+</p>
