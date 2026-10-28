@@ -27,5 +27,13 @@ Transitioning into game monetization by applying my Unity and player-data experi
 
 ## Contact
 
-- Portfolio: [mythptd.github.io](https://mythptd.github.io)
+- Portfolio: [mythptd.github.io](https://mythptd.github.io/portfolio/)
 - Email: [ptdatmyth261201@gmail.com](mailto:ptdatmyth261201@gmail.com)
+
+## Contribution Activity
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake.svg" />
+  <img alt="Animated snake eating my GitHub contribution graph" src="https://raw.githubusercontent.com/mythptd/mythptd/output/github-contribution-grid-snake.svg" />
+</picture>
