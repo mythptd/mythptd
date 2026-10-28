@@ -33,5 +33,5 @@ Transitioning into game monetization by applying my Unity and player-data experi
 ## Steel Tempest
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/mythptd/mythptd/main/assets/yasuo-q-pixel.svg" alt="Pixel Yasuo thrusting Q twice, then launching Q3 through minions" width="100%" />
+  <img src="https://raw.githubusercontent.com/mythptd/mythptd/main/assets/yasuo-q-pixel.svg" alt="Pixel-art Yasuo with flowing ponytail, blue scarf, purple trousers and detailed armored minions" width="100%" />
 </p>

@@ -1,128 +1,213 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="180" viewBox="0 0 880 180" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="260" viewBox="0 0 880 260" role="img" aria-labelledby="title desc">
   <title id="title">Yasuo Steel Tempest pixel animation</title>
-  <desc id="desc">A pixel swordsman thrusts twice, then launches a spinning wind tornado through three minions.</desc>
+  <desc id="desc">Pixel-art Yasuo with a long ponytail and blue scarf thrusts twice, then sends a spinning Q3 wind tornado through three armored minions.</desc>
   <defs>
-    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0" stop-color="#111827" />
-      <stop offset="1" stop-color="#0b1220" />
-    </linearGradient>
-    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M28 0H0V28" fill="none" stroke="#475569" stroke-opacity=".18" stroke-width="1" />
+    <pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse">
+      <rect x="1" y="1" width="1" height="1" fill="#5b554b" opacity=".22" />
+      <rect x="5" y="3" width="1" height="1" fill="#f3eee1" opacity=".32" />
+      <rect x="3" y="7" width="1" height="1" fill="#756d60" opacity=".16" />
+    </pattern>
+    <pattern id="scan" width="1" height="4" patternUnits="userSpaceOnUse">
+      <rect width="1" height="1" fill="#514b42" opacity=".12" />
     </pattern>
   </defs>
 
-  <rect x="1" y="1" width="878" height="178" rx="12" fill="url(#panel)" stroke="#334155" stroke-width="2" />
-  <rect x="2" y="2" width="876" height="176" rx="11" fill="url(#grid)" />
+  <!-- Warm, softly dithered pixel-art backdrop inspired by the reference GIF. -->
+  <rect width="880" height="260" fill="#b9b5a8" />
+  <rect width="880" height="260" fill="url(#grain)" />
+  <rect width="880" height="260" fill="url(#scan)" />
+  <path d="M0 220H880" stroke="#3c332d" stroke-width="4" />
+  <path d="M0 226H880" stroke="#786f62" stroke-width="2" />
 
-  <text x="28" y="31" fill="#e2e8f0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700" letter-spacing="2">YASUO</text>
-  <text x="28" y="49" fill="#38bdf8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="10" letter-spacing="1.5">STEEL TEMPEST</text>
-  <text x="850" y="32" text-anchor="end" fill="#94a3b8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="11" letter-spacing="1">Q  /  Q  /  Q3</text>
-  <circle cx="786" cy="48" r="3" fill="#38bdf8" />
-  <circle cx="802" cy="48" r="3" fill="#38bdf8" />
-  <circle cx="818" cy="48" r="3" fill="#a78bfa">
-    <animate attributeName="r" values="3;4.5;3" dur="1.2s" repeatCount="indefinite" />
-  </circle>
-
-  <path d="M24 132H856" stroke="#64748b" stroke-width="2" />
-  <g fill="#94a3b8" opacity=".55">
-    <rect x="40" y="144" width="20" height="3" rx="1" />
-    <rect x="130" y="151" width="12" height="3" rx="1" />
-    <rect x="220" y="144" width="25" height="3" rx="1" />
-    <rect x="330" y="151" width="14" height="3" rx="1" />
-    <rect x="430" y="144" width="22" height="3" rx="1" />
-    <rect x="530" y="151" width="12" height="3" rx="1" />
-    <rect x="630" y="144" width="25" height="3" rx="1" />
-    <rect x="740" y="151" width="14" height="3" rx="1" />
-    <rect x="830" y="144" width="18" height="3" rx="1" />
+  <!-- Small ground pixels move beneath the fighters. -->
+  <g fill="#564d42" opacity=".7">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;-88 0" dur=".42s" repeatCount="indefinite" />
+      <rect x="18" y="235" width="22" height="4" />
+      <rect x="104" y="244" width="12" height="4" />
+      <rect x="190" y="235" width="24" height="4" />
+      <rect x="290" y="244" width="16" height="4" />
+      <rect x="385" y="235" width="20" height="4" />
+      <rect x="480" y="244" width="14" height="4" />
+      <rect x="572" y="235" width="24" height="4" />
+      <rect x="670" y="244" width="16" height="4" />
+      <rect x="764" y="235" width="20" height="4" />
+      <rect x="850" y="244" width="12" height="4" />
+    </g>
   </g>
 
-  <!-- Yasuo pixel sprite -->
-  <g transform="translate(88 62)" shape-rendering="crispEdges">
-    <path d="M20 12h-22v6h-14v6h25v-5h14z" fill="#0f172a" />
-    <rect x="21" y="4" width="25" height="23" fill="#f0c99a" />
-    <path d="M17 8V1h9v-5h12v6h12v9h-7V6H27v8h-6V8z" fill="#111827" />
-    <rect x="25" y="12" width="4" height="4" fill="#0b1220" />
-    <rect x="19" y="23" width="36" height="34" fill="#1e3a8a" />
-    <path d="M15 27h10v25H7v-8h8z" fill="#334155" />
-    <rect x="37" y="29" width="24" height="6" fill="#38bdf8" />
-    <rect x="43" y="35" width="14" height="5" fill="#0f766e" />
-    <path d="M18 48h39v8H50v8H23v-7H12v-7h6z" fill="#172554" />
-    <rect x="23" y="55" width="9" height="12" fill="#0f172a" />
-    <rect x="39" y="55" width="9" height="12" fill="#0f172a" />
-    <rect x="19" y="65" width="15" height="5" fill="#94a3b8" />
-    <rect x="36" y="65" width="16" height="5" fill="#94a3b8" />
-    <rect x="53" y="31" width="10" height="5" fill="#f0c99a" />
-    <rect x="-3" y="17" width="11" height="5" fill="#0f172a" />
+  <!-- Yasuo: layered ponytail, face, blue scarf, armor and indigo hakama. -->
+  <g transform="translate(136 73)" shape-rendering="crispEdges">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 0;13 0;0 0;0 0;13 0;0 0;0 0" keyTimes="0;.035;.055;.09;.245;.265;.30;1" dur="7s" repeatCount="indefinite" />
+
+      <!-- Long, wind-swept hair -->
+      <g>
+        <animateTransform attributeName="transform" type="translate" values="0 0;-3 -2;0 0;2 1;0 0" dur=".8s" repeatCount="indefinite" />
+        <path d="M57 17H39V8H18V3H-5V8H-28V13H-53V20H-77V28H-60V34H-42V40H-21V46H1V42H24V37H42V31H56V24H65Z" fill="#2a1913" stroke="#211510" stroke-width="4" stroke-linejoin="miter" />
+        <path d="M-63 20H-43V25H-25V31H-7V36H12V40H-9V36H-29V31H-47V26H-64Z" fill="#57321e" />
+        <path d="M-39 14H-20V19H-2V24H17V30H34V34H18V29H0V24H-19V19H-38Z" fill="#412419" />
+        <rect x="42" y="14" width="12" height="8" fill="#b9332b" />
+        <rect x="45" y="12" width="6" height="12" fill="#e65b43" />
+      </g>
+
+      <!-- Back of head, hairline and face -->
+      <path d="M47 13H69V18H79V27H84V38H78V47H69V54H51V47H44V39H39V25H45V18H47Z" fill="#e7b98d" stroke="#30201a" stroke-width="4" stroke-linejoin="miter" />
+      <path d="M43 17H53V8H72V12H82V20H76V17H65V24H57V21H48V34H42Z" fill="#261913" />
+      <rect x="66" y="27" width="5" height="5" fill="#251713" />
+      <rect x="76" y="35" width="7" height="4" fill="#b7775d" />
+      <rect x="45" y="30" width="7" height="11" fill="#cc936f" />
+      <rect x="51" y="50" width="20" height="13" fill="#c88c68" />
+
+      <!-- Neck wrap and flowing blue scarf -->
+      <path d="M43 50H63V57H78V64H95V73H83V81H66V76H53V68H40Z" fill="#3f9fc9" stroke="#30201a" stroke-width="4" stroke-linejoin="miter" />
+      <path d="M47 56H63V62H78V68H88V72H77V68H62V63H48Z" fill="#80d4e9" />
+      <path d="M79 65H101V72H112V78H100V86H84V79H76Z" fill="#2988b7" stroke="#30201a" stroke-width="4" stroke-linejoin="miter" />
+      <path d="M92 73H106V78H99V83H90Z" fill="#74c9df" />
+
+      <!-- Blue shoulder armor, undershirt and forearms -->
+      <path d="M35 61H52V67H70V77H83V99H75V116H33V106H24V83H32V72H38Z" fill="#263c68" stroke="#30201a" stroke-width="4" stroke-linejoin="miter" />
+      <path d="M39 65H51V71H65V78H75V87H64V82H50V76H38Z" fill="#3978a6" />
+      <path d="M28 72H40V83H51V91H45V101H32V94H23V82H28Z" fill="#5685a7" stroke="#30201a" stroke-width="3" stroke-linejoin="miter" />
+      <rect x="57" y="91" width="18" height="8" fill="#e7b98d" />
+      <rect x="66" y="95" width="15" height="8" fill="#d69d76" />
+      <rect x="69" y="91" width="13" height="5" fill="#35465d" />
+
+      <!-- Red sash and split purple trousers -->
+      <path d="M28 108H75V116H29Z" fill="#8d2926" stroke="#30201a" stroke-width="3" />
+      <path d="M37 115H48V125H43V141H35V133H30V123H37Z" fill="#b53a30" />
+      <path d="M33 115H75V125H69V143H51V134H45V145H24V136H18V123H30Z" fill="#4c2a78" stroke="#30201a" stroke-width="4" stroke-linejoin="miter" />
+      <path d="M38 119H48V126H43V137H37V129H32Z" fill="#7350a3" />
+      <path d="M56 120H66V128H61V137H54Z" fill="#342252" />
+      <path d="M19 135H43V143H39V151H18V146H13V140H19Z" fill="#25202a" stroke="#30201a" stroke-width="3" />
+      <path d="M50 136H70V143H76V148H70V152H49V146H45V141H50Z" fill="#25202a" stroke="#30201a" stroke-width="3" />
+      <rect x="17" y="143" width="19" height="3" fill="#c3b8a4" />
+      <rect x="53" y="144" width="17" height="3" fill="#c3b8a4" />
+    </g>
   </g>
 
-  <!-- Q1 and Q2 thrust trails -->
-  <g fill="none" stroke="#67e8f9" stroke-linecap="square">
+  <!-- Katana: two quick thrusts, then a charged third cast. -->
+  <g transform="translate(218 151)" shape-rendering="crispEdges">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 0;34 0;34 0;0 0;0 0;34 0;34 0;0 0;0 0" keyTimes="0;.035;.045;.07;.10;.245;.26;.285;.32;1" dur="7s" repeatCount="indefinite" />
+      <rect x="-10" y="-5" width="20" height="10" fill="#9d3027" stroke="#30201a" stroke-width="2" />
+      <rect x="6" y="-3" width="8" height="6" fill="#d9c5a0" />
+      <path d="M13-2H94V0H103L94 3H13Z" fill="#dce4e4" stroke="#30201a" stroke-width="2" stroke-linejoin="miter" />
+      <path d="M20-1H86V0H20Z" fill="#fff4d6" />
+    </g>
+  </g>
+
+  <!-- Thin pixel slashes on Q1 and Q2. -->
+  <g fill="none" stroke-linecap="square">
     <g opacity="0">
-      <animate attributeName="opacity" values="0;0;1;0;0;0;1;0;0" keyTimes="0;.03;.045;.10;.22;.25;.265;.32;1" dur="6s" repeatCount="indefinite" />
-      <path d="M220 75h47M226 82h36M230 68h28" stroke-width="3" />
-      <path d="M262 71l10 4-10 4" stroke-width="2" />
+      <animate attributeName="opacity" values="0;0;1;0;0;0;1;0;0" keyTimes="0;.035;.05;.10;.23;.245;.27;.32;1" dur="7s" repeatCount="indefinite" />
+      <path d="M304 126H368V130H350M311 119H352" stroke="#e9f8f4" stroke-width="4" />
+      <path d="M363 123L377 129L363 135" stroke="#5ac9e0" stroke-width="3" />
     </g>
   </g>
 
-  <!-- Katana thrusts twice before the third cast -->
-  <g transform="translate(136 84)" shape-rendering="crispEdges">
-    <animateTransform attributeName="transform" type="translate" values="136 84;136 84;164 84;164 84;136 84;136 84;164 84;164 84;136 84;136 84" keyTimes="0;.03;.045;.075;.10;.25;.265;.29;.32;1" dur="6s" repeatCount="indefinite" />
-    <rect x="-10" y="-3" width="18" height="7" fill="#f59e0b" />
-    <rect x="6" y="-2" width="5" height="5" fill="#cbd5e1" />
-    <rect x="11" y="-1" width="54" height="3" fill="#e2e8f0" />
-    <path d="M65-1h8l-8 3z" fill="#67e8f9" />
-  </g>
-
-  <!-- Minions -->
-  <g shape-rendering="crispEdges">
-    <g transform="translate(280 97)">
-      <animateTransform attributeName="transform" type="translate" values="280 97;280 97;280 70;280 97;280 97" keyTimes="0;.605;.625;.66;1" dur="6s" repeatCount="indefinite" />
-      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
-      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
-      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
-      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="8" y="25" width="7" height="10" fill="#334155" />
-      <rect x="21" y="25" width="7" height="10" fill="#334155" />
-      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
-      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
-    </g>
-    <g transform="translate(490 97)">
-      <animateTransform attributeName="transform" type="translate" values="490 97;490 97;490 70;490 97;490 97" keyTimes="0;.695;.715;.75;1" dur="6s" repeatCount="indefinite" />
-      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
-      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
-      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
-      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="8" y="25" width="7" height="10" fill="#334155" />
-      <rect x="21" y="25" width="7" height="10" fill="#334155" />
-      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
-      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
-    </g>
-    <g transform="translate(700 97)">
-      <animateTransform attributeName="transform" type="translate" values="700 97;700 97;700 70;700 97;700 97" keyTimes="0;.785;.805;.84;1" dur="6s" repeatCount="indefinite" />
-      <rect x="7" y="0" width="20" height="10" fill="#ef4444" />
-      <rect x="3" y="8" width="28" height="8" fill="#f59e0b" />
-      <rect x="7" y="16" width="20" height="10" fill="#b91c1c" />
-      <rect x="0" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="27" y="18" width="7" height="7" fill="#94a3b8" />
-      <rect x="8" y="25" width="7" height="10" fill="#334155" />
-      <rect x="21" y="25" width="7" height="10" fill="#334155" />
-      <rect x="5" y="33" width="12" height="4" fill="#64748b" />
-      <rect x="19" y="33" width="12" height="4" fill="#64748b" />
+  <!-- Red melee minion: helmet, spear, shield, layered armor and boots. -->
+  <g transform="translate(386 143)" shape-rendering="crispEdges">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -27;0 0;0 0" keyTimes="0;.535;.56;.61;1" dur="7s" repeatCount="indefinite" />
+      <g fill="#30302d" stroke="#35251d" stroke-width="3" stroke-linejoin="miter">
+        <path d="M43-43H47V2H43Z" />
+        <path d="M39-48H51L45-61Z" fill="#d8bd78" />
+        <path d="M23 1H51V12H56V29H50V50H24V43H19V25H24Z" fill="#a8322d" />
+        <path d="M25 3H49V10H53V20H47V17H27V20H21V11H25Z" fill="#b94236" />
+        <path d="M29 9H45V22H49V29H44V33H29V29H25V20H29Z" fill="#e6b18a" />
+        <path d="M25 16H49V21H25Z" fill="#292321" />
+        <path d="M30 17H34V20H30Z" fill="#f2cf91" stroke="none" />
+        <path d="M18 23H28V31H21V43H14V31H18Z" fill="#828785" />
+        <path d="M45 23H56V31H60V43H52V34H45Z" fill="#828785" />
+        <path d="M28 32H48V48H44V55H29V49H24V39H28Z" fill="#737a78" />
+        <path d="M32 34H43V40H37V45H30Z" fill="#bac0b5" stroke="none" />
+        <path d="M24 39H29V51H23V59H18V53H21V45H24Z" fill="#8f2e29" />
+        <path d="M47 39H52V47H56V55H50V50H45Z" fill="#8f2e29" />
+        <path d="M28 48H47V53H44V58H29V54H26Z" fill="#c49552" />
+        <path d="M28 56H36V67H32V73H21V68H25V58H28Z" fill="#4b4a47" />
+        <path d="M41 56H49V66H54V72H39V67H36V61H41Z" fill="#4b4a47" />
+      </g>
+      <path d="M6 31H19V38H16V51H9V46H5V39H8Z" fill="#a8322d" stroke="#35251d" stroke-width="3" />
+      <path d="M5 34H17V37H13V46H8V42H5Z" fill="#d1ad61" />
+      <path d="M54 37H63V41H68V49H63V57H54V52H50V43H54Z" fill="#315d78" stroke="#35251d" stroke-width="3" />
+      <path d="M57 41H62V46H65V49H61V53H57V49H54V45H57Z" fill="#6da0b5" />
+      <path d="M22 74H35M39 74H54" stroke="#35251d" stroke-width="4" />
     </g>
   </g>
 
-  <!-- Q3 tornado travels through the minion line -->
+  <!-- Second minion, with a taller crest and brighter shield. -->
+  <g transform="translate(545 143)" shape-rendering="crispEdges">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -27;0 0;0 0" keyTimes="0;.625;.65;.70;1" dur="7s" repeatCount="indefinite" />
+      <g fill="#30302d" stroke="#35251d" stroke-width="3" stroke-linejoin="miter">
+        <path d="M43-43H47V2H43Z" />
+        <path d="M39-48H51L45-61Z" fill="#d8bd78" />
+        <path d="M23 1H51V12H56V29H50V50H24V43H19V25H24Z" fill="#a8322d" />
+        <path d="M25 3H49V10H53V20H47V17H27V20H21V11H25Z" fill="#b94236" />
+        <path d="M29 9H45V22H49V29H44V33H29V29H25V20H29Z" fill="#e6b18a" />
+        <path d="M25 16H49V21H25Z" fill="#292321" />
+        <path d="M30 17H34V20H30Z" fill="#f2cf91" stroke="none" />
+        <path d="M18 23H28V31H21V43H14V31H18Z" fill="#828785" />
+        <path d="M45 23H56V31H60V43H52V34H45Z" fill="#828785" />
+        <path d="M28 32H48V48H44V55H29V49H24V39H28Z" fill="#737a78" />
+        <path d="M32 34H43V40H37V45H30Z" fill="#bac0b5" stroke="none" />
+        <path d="M24 39H29V51H23V59H18V53H21V45H24Z" fill="#8f2e29" />
+        <path d="M47 39H52V47H56V55H50V50H45Z" fill="#8f2e29" />
+        <path d="M28 48H47V53H44V58H29V54H26Z" fill="#c49552" />
+        <path d="M28 56H36V67H32V73H21V68H25V58H28Z" fill="#4b4a47" />
+        <path d="M41 56H49V66H54V72H39V67H36V61H41Z" fill="#4b4a47" />
+      </g>
+      <path d="M6 31H19V38H16V51H9V46H5V39H8Z" fill="#a8322d" stroke="#35251d" stroke-width="3" />
+      <path d="M5 34H17V37H13V46H8V42H5Z" fill="#d1ad61" />
+      <path d="M54 37H63V41H68V49H63V57H54V52H50V43H54Z" fill="#315d78" stroke="#35251d" stroke-width="3" />
+      <path d="M57 41H62V46H65V49H61V53H57V49H54V45H57Z" fill="#6da0b5" />
+      <path d="M22 74H35M39 74H54" stroke="#35251d" stroke-width="4" />
+    </g>
+  </g>
+
+  <!-- Third minion, same pixel-art armor with a red pennant. -->
+  <g transform="translate(704 143)" shape-rendering="crispEdges">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 -27;0 0;0 0" keyTimes="0;.715;.74;.79;1" dur="7s" repeatCount="indefinite" />
+      <g fill="#30302d" stroke="#35251d" stroke-width="3" stroke-linejoin="miter">
+        <path d="M43-43H47V2H43Z" />
+        <path d="M39-48H51L45-61Z" fill="#d8bd78" />
+        <path d="M23 1H51V12H56V29H50V50H24V43H19V25H24Z" fill="#a8322d" />
+        <path d="M25 3H49V10H53V20H47V17H27V20H21V11H25Z" fill="#b94236" />
+        <path d="M29 9H45V22H49V29H44V33H29V29H25V20H29Z" fill="#e6b18a" />
+        <path d="M25 16H49V21H25Z" fill="#292321" />
+        <path d="M30 17H34V20H30Z" fill="#f2cf91" stroke="none" />
+        <path d="M18 23H28V31H21V43H14V31H18Z" fill="#828785" />
+        <path d="M45 23H56V31H60V43H52V34H45Z" fill="#828785" />
+        <path d="M28 32H48V48H44V55H29V49H24V39H28Z" fill="#737a78" />
+        <path d="M32 34H43V40H37V45H30Z" fill="#bac0b5" stroke="none" />
+        <path d="M24 39H29V51H23V59H18V53H21V45H24Z" fill="#8f2e29" />
+        <path d="M47 39H52V47H56V55H50V50H45Z" fill="#8f2e29" />
+        <path d="M28 48H47V53H44V58H29V54H26Z" fill="#c49552" />
+        <path d="M28 56H36V67H32V73H21V68H25V58H28Z" fill="#4b4a47" />
+        <path d="M41 56H49V66H54V72H39V67H36V61H41Z" fill="#4b4a47" />
+      </g>
+      <path d="M6 31H19V38H16V51H9V46H5V39H8Z" fill="#a8322d" stroke="#35251d" stroke-width="3" />
+      <path d="M5 34H17V37H13V46H8V42H5Z" fill="#d1ad61" />
+      <path d="M54 37H63V41H68V49H63V57H54V52H50V43H54Z" fill="#315d78" stroke="#35251d" stroke-width="3" />
+      <path d="M57 41H62V46H65V49H61V53H57V49H54V45H57Z" fill="#6da0b5" />
+      <path d="M22 74H35M39 74H54" stroke="#35251d" stroke-width="4" />
+    </g>
+  </g>
+
+  <!-- Q3: chunky pixel wind spiral crosses the full minion line. -->
   <g opacity="0">
-    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.53;.56;.86;.92;1" dur="6s" repeatCount="indefinite" />
-    <animateTransform attributeName="transform" type="translate" values="160 99;160 99;840 99;840 99;160 99" keyTimes="0;.54;.86;.92;1" dur="6s" repeatCount="indefinite" />
-    <g fill="none" stroke-linecap="round">
-      <animateTransform attributeName="transform" type="rotate" values="0;360" dur=".38s" repeatCount="indefinite" />
-      <path d="M-34 0c8-23 41-27 58-10 14 15 4 36-17 37-19 1-28-17-16-28 10-9 23-3 24 7" stroke="#67e8f9" stroke-width="4" />
-      <path d="M-26-10c12-13 33-13 42 0 8 11 0 22-11 22-9 0-13-8-8-14" stroke="#bae6fd" stroke-width="3" />
-      <path d="M-29 15c13 8 31 8 43 0" stroke="#38bdf8" stroke-width="3" />
-      <path d="M-40 0h80" stroke="#e0f2fe" stroke-opacity=".8" stroke-width="2" />
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.50;.52;.80;.85;1" dur="7s" repeatCount="indefinite" />
+    <animateTransform attributeName="transform" type="translate" values="290 174;290 174;830 174;830 174;290 174" keyTimes="0;.51;.80;.85;1" dur="7s" repeatCount="indefinite" />
+    <g shape-rendering="crispEdges">
+      <animateTransform attributeName="transform" type="rotate" values="0;360" dur=".34s" repeatCount="indefinite" />
+      <path d="M-43-7H-32V-20H-18V-29H14V-23H31V-13H22V-4H4V3H-12V14H-30V23H-47V12H-38V4H-26V-4H-43Z" fill="#c7e4df" fill-opacity=".85" stroke="#3d6870" stroke-width="3" stroke-linejoin="miter" />
+      <path d="M-24-11H-10V-19H12V-12H2V-3H-8V6H-22V13H-35V6H-25V0H-15V-7H-24Z" fill="#73c6d0" stroke="#2d5c67" stroke-width="3" stroke-linejoin="miter" />
+      <path d="M11 12H28V5H39V-4H29V-12H14V-18H30V-11H43V-2H50V8H39V17H25V24H7V18H-4V12H11Z" fill="#e4f2e8" stroke="#4f7470" stroke-width="3" stroke-linejoin="miter" />
+      <rect x="-36" y="-31" width="8" height="5" fill="#eef8ed" />
+      <rect x="34" y="23" width="9" height="5" fill="#6bb7c3" />
+      <rect x="-50" y="27" width="6" height="5" fill="#6bb7c3" />
     </g>
   </g>
 </svg>
