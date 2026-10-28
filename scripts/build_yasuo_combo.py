@@ -1,4 +1,4 @@
-"""Render the looping Q1 / Q2 / Q3 scene used by the profile README."""
+"""Render Yasuo defending a crystal from a looping, animated minion wave."""
 
 from __future__ import annotations
 
@@ -13,16 +13,21 @@ from PIL import Image, ImageDraw
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "assets" / "yasuo.gif"
 MINION = ROOT / "assets" / "minion-pixel.png"
+CRYSTAL = ROOT / "assets" / "home-crystal-pixel.png"
 OUTPUT = ROOT / "assets" / "yasuo-q-combo.gif"
 
 WIDTH, HEIGHT = 760, 211
 FRAME_MS = 80
-FRAME_COUNT = 65
+FRAME_COUNT = 90
 CYCLE = FRAME_COUNT * FRAME_MS / 1000
 WALK_SPEED = 110
-ENTRY_X = 785
-SPAWN_PHASES = (0.8, 2.8, 4.3)
-KILL_AFTER = 3.4
+ENTRY_X = 730
+# Three minions arrive for Q3. The next two enter after the tornado and
+# become the Q1 and Q2 targets when the GIF loops.
+SPAWN_RULES = ((1.3, "wind"), (2.3, "wind"), (3.3, "wind"), (5.3, "q1"), (6.8, "q2"))
+TORNADO_START = 3.85
+TORNADO_START_X = 270
+TORNADO_SPEED = 400
 BACKDROP = (122, 114, 109)
 
 
@@ -116,8 +121,30 @@ def draw_spark(draw: ImageDraw.ImageDraw, x: int, y: int, age: float, seed: int,
         draw.rectangle((px, py, px + size, py + size), fill=color)
 
 
-def paste_minion(canvas: Image.Image, sprite: Image.Image, body_x: float, y: int, flash: bool = False, fade: float = 1) -> None:
-    x = round(body_x) - 68
+def walking_sprites(sprite: Image.Image) -> list[Image.Image]:
+    """Move the two original pixel-art boots independently in four clear steps."""
+    torso = sprite.crop((0, 0, sprite.width, 83))
+    front = sprite.crop((39, 77, 73, 100))
+    rear = sprite.crop((73, 77, 109, 100))
+    poses = []
+    for front_dx, front_dy, rear_dx, rear_dy in ((-7, -2, 6, 0), (-2, 0, 2, -2), (7, 0, -7, -2), (2, -2, -2, 0)):
+        pose = Image.new("RGBA", sprite.size, (0, 0, 0, 0))
+        pose.paste(rear, (73 + rear_dx, 77 + rear_dy), rear)
+        pose.paste(torso, (0, 0), torso)
+        pose.paste(front, (39 + front_dx, 77 + front_dy), front)
+        poses.append(pose)
+    return poses
+
+
+def paste_minion(
+    canvas: Image.Image,
+    sprite: Image.Image,
+    body_x: float,
+    lift: int = 0,
+    flash: bool = False,
+    fade: float = 1,
+    angle: float = 0,
+) -> None:
     minion = sprite.copy()
     if flash:
         alpha = minion.getchannel("A")
@@ -125,35 +152,69 @@ def paste_minion(canvas: Image.Image, sprite: Image.Image, body_x: float, y: int
         minion.putalpha(alpha)
     if fade < 1:
         minion.putalpha(minion.getchannel("A").point(lambda v: round(v * fade)))
+    if angle:
+        minion = minion.rotate(angle, Image.Resampling.NEAREST, expand=True)
+        x = round(body_x) - minion.width // 2
+    else:
+        x = round(body_x) - 68
+    y = HEIGHT - minion.height - lift
     canvas.paste(minion, (x, y), minion)
 
 
-def minions_at(canvas: Image.Image, sprite: Image.Image, t: float) -> None:
+def wind_hit_time(phase: float) -> float:
+    return (ENTRY_X + TORNADO_SPEED * TORNADO_START + WALK_SPEED * phase - TORNADO_START_X) / (TORNADO_SPEED + WALK_SPEED)
+
+
+def draw_defeat(canvas: Image.Image, sprite: Image.Image, body_x: float, death_age: float, kind: str, seed: int) -> None:
+    wind = kind == "wind"
+    if wind:
+        if death_age < 0.32:
+            lift = round(62 * death_age / 0.32)
+        elif death_age < 0.75:
+            lift = round(62 * (1 - (death_age - 0.32) / 0.43))
+        else:
+            lift = 0
+        angle = -min(82, death_age * 112)
+        fade = 1 if death_age < 0.74 else max(0, 1 - (death_age - 0.74) / 0.24)
+        drift = death_age * 34
+    else:
+        lift = round(20 * math.sin(math.pi * min(death_age / 0.55, 1)))
+        angle = -min(78, death_age * 120)
+        fade = 1 if death_age < 0.55 else max(0, 1 - (death_age - 0.55) / 0.30)
+        drift = death_age * 20
+
+    if fade > 0:
+        paste_minion(canvas, sprite, body_x + drift, lift, death_age < 0.08, fade, angle)
+    draw = ImageDraw.Draw(canvas)
+    if death_age < 0.35:
+        draw_spark(draw, round(body_x), 152 - lift, death_age, seed, blue=True)
+    elif 0.55 < death_age < 0.89:
+        # Pixel armor fragments and a short dust burst make the fall readable.
+        draw_spark(draw, round(body_x + drift), 193, death_age - 0.55, seed + 100)
+
+
+def minions_at(canvas: Image.Image, sprites: list[Image.Image], t: float) -> None:
     draw = ImageDraw.Draw(canvas)
     for wave in (-1, 0):
-        for kind, phase in enumerate(SPAWN_PHASES):
+        for index, (phase, kind) in enumerate(SPAWN_RULES):
             spawn = wave * CYCLE + phase
             age = t - spawn
-            if age < 0 or age > KILL_AFTER + 0.55:
+            if age < 0:
                 continue
-            body_x = ENTRY_X - WALK_SPEED * min(age, KILL_AFTER)
+            hit = wave * CYCLE + wind_hit_time(phase) if kind == "wind" else spawn + 2.9
+            death_age = t - hit
+            if death_age > 0.98:
+                continue
+            body_x = ENTRY_X - WALK_SPEED * min(age, hit - spawn)
             if body_x - 68 > WIDTH or body_x + 42 < 0:
                 continue
-            death_age = age - KILL_AFTER
             if death_age < 0:
-                bob = int(age * 11) % 2
+                step = int(age / 0.12) % len(sprites)
+                bob = (0, 2, 0, 2)[step]
                 draw.ellipse((body_x - 26, 207, body_x + 29, 210), fill=(95, 86, 81))
-                paste_minion(canvas, sprite, body_x, HEIGHT - sprite.height - bob)
-            elif kind == 0 and death_age < 0.47:
-                # The minion hit by Q3 is lifted into the wind.
-                lift = round(67 * min(1, death_age / 0.32))
-                paste_minion(canvas, sprite, body_x + death_age * 26, HEIGHT - sprite.height - lift, death_age < 0.10, 1 - death_age / 0.55)
-                draw_spark(draw, round(body_x), 151 - lift, death_age, 300 + wave, blue=True)
-            elif death_age < 0.10:
-                paste_minion(canvas, sprite, body_x + 3, HEIGHT - sprite.height - 4, flash=True)
-                draw_spark(draw, round(body_x), 151, death_age, kind + wave * 4)
-            elif death_age < 0.34:
-                draw_spark(draw, round(body_x), 151, death_age, kind + wave * 4)
+                paste_minion(canvas, sprites[step], body_x, bob)
+            else:
+                draw_defeat(canvas, sprites[1], body_x, death_age, kind, 300 + wave * 10 + index)
 
 
 def draw_attack_effects(canvas: Image.Image, t: float, twisters: list[Image.Image]) -> None:
@@ -165,9 +226,9 @@ def draw_attack_effects(canvas: Image.Image, t: float, twisters: list[Image.Imag
             draw.line(((367, 146), (425, 145)), fill=(235, 252, 251), width=2)
             draw_spark(draw, 411, 145, age, round(hit * 10), blue=True)
 
-    tornado_age = t - 3.85
+    tornado_age = t - TORNADO_START
     if 0 <= tornado_age < 1.23:
-        tornado_x = 270 + 400 * tornado_age
+        tornado_x = TORNADO_START_X + TORNADO_SPEED * tornado_age
         sprite = twisters[int(t / 0.08) % len(twisters)]
         if tornado_x < WIDTH + 50:
             canvas.paste(sprite, (round(tornado_x) - 30, 112 + int(t * 25) % 3), sprite)
@@ -180,13 +241,16 @@ def draw_attack_effects(canvas: Image.Image, t: float, twisters: list[Image.Imag
 def render() -> None:
     frames, masks = source_frames()
     sprite = Image.open(MINION).convert("RGBA")
+    sprites = walking_sprites(sprite)
+    crystal = Image.open(CRYSTAL).convert("RGBA")
     twisters = [tornado_sprite(i) for i in range(4)]
     output = []
     for index in range(FRAME_COUNT):
         t = index * FRAME_MS / 1000
         pose = pose_at(t)
         canvas = backdrop(frames[pose])
-        minions_at(canvas, sprite, t)
+        canvas.paste(crystal, (42, 36), crystal)
+        minions_at(canvas, sprites, t)
         canvas.paste(frames[pose], (0, 0), masks[pose])
         draw_attack_effects(canvas, t, twisters)
         output.append(canvas)
